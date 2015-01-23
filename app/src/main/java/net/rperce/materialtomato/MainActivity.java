@@ -7,6 +7,9 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.File;
+import java.util.ArrayList;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -15,14 +18,16 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] arrayTest = new String[] {"Foo", "Bar", "FizzBuzz"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayTest);
+        File listFile = new File(getApplicationContext().getFilesDir(), "list.json");
+        ArrayList<String> listArray = new ArrayList<>();
+        String[] arrayTest = new String[] {"Foo", "Bar", "FizzBuzz","Over","flow","the","screen","plz","for","testing","purposes","okay","plz","now"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.todo_layout, R.id.todo_text, arrayTest);
         ListView view = (ListView)findViewById(R.id.todoList);
         view.setAdapter(adapter);
     }
 
     private void addDummyListItem(ArrayAdapter<String> list) {
-        
+        list.add("New list item");
     }
 
 
