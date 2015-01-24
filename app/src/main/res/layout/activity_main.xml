@@ -46,13 +46,44 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dummy_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:paddingTop="16dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/textColorPrimaryLight"
+            android:id="@+id/new_button"
+            android:paddingLeft="16dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/new_item_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/textColorPrimaryLight"
+            android:text="New Item"
+            android:gravity="center_vertical"
+            android:paddingLeft="72dp"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+    </RelativeLayout>
 
     <ListView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:paddingTop="16dp"
+        android:layout_below="@+id/dummy_add"
         android:id="@+id/todoList"
         />
 
