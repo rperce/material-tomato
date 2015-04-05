@@ -14,9 +14,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 
@@ -58,8 +61,6 @@ public class MainActivity extends ActionBarActivity {
         } catch(IOException ioe) {
             errLog("Error reading list file", ioe);
         }
-        // TODO KILL
-        listArray.add("testing drr");
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.todo_layout, R.id.todo_text, listArray);
 
@@ -77,7 +78,6 @@ public class MainActivity extends ActionBarActivity {
                     return;
                 adapter.add(newText.getText().toString());
                 adapter.notifyDataSetChanged();
-
                 newText.setText("");
             }
         });
@@ -111,5 +111,44 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        updateFile();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        updateFile();
+        super.onStop();
+    }
+
+    private void updateFile() {
+        PrintWriter pw;
+        try {
+            File listFile = new File(getApplicationContext().getFilesDir(), "list.json");
+            try {
+                if (!listFile.exists()) {
+                    boolean success = listFile.createNewFile();
+                    if (!success) throw new IOException("File didn't exist, but then did");
+                }
+            } catch(IOException ioe) {
+                errLog("Error creating list file", ioe);
+            }
+            new FileWriter(listFile).close(); // flush file
+            pw = new PrintWriter(new BufferedWriter(new FileWriter(listFile, true)));
+
+            ListView view = (ListView)findViewById(R.id.todoList);
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>)view.getAdapter();
+            for (int i = 0; i<adapter.getCount(); i++) {
+                String line = adapter.getItem(i);
+                pw.println(line);
+            }
+            pw.close();
+        } catch(IOException ioe) {
+            errLog("Error reading list file", ioe);
+        }
     }
 }
