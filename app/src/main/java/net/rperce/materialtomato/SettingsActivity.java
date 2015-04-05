@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
-/**
- * Created by Robert on 2/10/2015.
- */
 public class SettingsActivity extends PreferenceActivity {
     private static final int prefs = R.layout.preferences;
     @Override
